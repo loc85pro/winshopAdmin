@@ -1,0 +1,9 @@
+.ProductBox-container {
+  border: solid 1px pink;
+  width: 400px;
+  height: 300px;
+}
+.ProductBox-container img {
+  width: 100px;
+  object-fit: cover;
+}

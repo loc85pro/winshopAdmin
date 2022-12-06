@@ -1,0 +1,26 @@
+{
+  "name": "notification",
+  "time": "20:20:25 11/19/2022",
+  "data": [
+    {
+      "id": 1,
+      "title": "Update product was complete",
+      "time": "1m ago"
+    },
+    {
+      "id": 2,
+      "title": "Order sending",
+      "time": "1m ago"
+    },
+    {
+      "id": 3,
+      "title": "A messenger was unread",
+      "time": "3m ago"
+    },
+    {
+      "id": 4,
+      "title": "A user was signup",
+      "time": "2 day ago"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+:root {
+  --bgrDropdown: rgb(151, 151, 241);
+  --bgrDropdown-hover: rgb(118, 118, 206);
+}
+
+.container-noti-dropdown {
+  width: 300px;
+  position: absolute;
+  background: blue;
+  transform: translate(-280px, 20px);
+  border-radius: 5px;
+  background-color: var(--bgrDropdown);
+  border-radius: 5px;
+}
+.dropdownnotification-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  transition: 0.25s ease;
+}
+.dropdownnotification-item span:first-child {
+  position: relative;
+  color: white;
+  font-size: 15px;
+}
+.dropdownnotification-item span:last-child {
+  color: white;
+  font-size: 10px;
+}
+.dropdownnotification-item:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.dropdownnotification-item:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.dropdownnotification-item:first-child:before {
+  content: "";
+  position: absolute;
+  border: var(--bgrDropdown) 8px solid;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-top: none;
+  right: 20px;
+  top: -7px;
+  transition: 0.25s ease;
+}
+.dropdownnotification-item:hover {
+  background-color: var(--bgrDropdown-hover);
+}
+.dropdownnotification-item:first-child:hover:before {
+  border-bottom-color: var(--bgrDropdown-hover);
+}
