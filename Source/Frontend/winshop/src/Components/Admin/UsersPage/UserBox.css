@@ -27,7 +27,7 @@
   font-weight: bold;
 }
 
-.UpdateUserr-Model-cancel-button {
+.UpdateUser-Model-cancel-button {
   transform: translate(300px, 30px);
   cursor: pointer;
 }
@@ -38,6 +38,7 @@
   justify-content: center;
   position: fixed;
   left: calc(50vw-30px);
+  top: 10px;
   z-index: 10;
 }
 .UpdateUser-Modal-layout {
@@ -74,4 +75,24 @@
 .UpdateUser-Modal-Submit-Button:hover {
   background-color: green;
   color: white;
+}
+.UserBox-update-button {
+  margin: 15px;
+  width: 100px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 5px 1px grey;
+  transition: 0.2s ease;
+}
+.UserBox-update-button:hover {
+  background-color: rgb(246, 105, 29);
+  color: white;
+  font-size: bold;
+}
+.UserBox-content {
+  min-width: 200px;
+}
+.isAdmin {
+  font-size: 20px;
+  font-weight: bolder;
 }

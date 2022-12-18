@@ -13,7 +13,6 @@ const UsersPage = () => {
     const fetchUsers = async () => {
       const data = await axiosClient.get("/api/user/admin");
       dispatch({ type: "USER_UPDATE", payload: data.data });
-      console.log(data.data);
     };
     fetchUsers();
   }, []);

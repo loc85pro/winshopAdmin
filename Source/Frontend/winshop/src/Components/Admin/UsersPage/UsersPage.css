@@ -5,3 +5,14 @@
   grid-column-gap: 30px;
   grid-row-gap: 30px;
 }
+@media screen and (max-width: 1500px) {
+  .UserPage {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .UserPage {
+    grid-template-columns: 1fr;
+  }
+}

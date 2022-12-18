@@ -72,6 +72,7 @@
 .profiledropdown {
   font-size: 20px;
   position: absolute;
+  z-index: 10;
   transform: translate(-60%, 80%);
   width: 100px;
   background-color: rgb(151, 151, 241);

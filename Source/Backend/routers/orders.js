@@ -14,8 +14,9 @@ router.get("/admin/:id", authMiddleware.authorizeRole, orderControllers.getOrder
 router.get("/cart/me", authMiddleware.verifyToken, orderControllers.getMyOrders);
 
 // Update order
-router.put("/admin/status/:id", authMiddleware.authorizeRole, orderControllers.updateOrderByStatus);
+router.put("/status/:id", authMiddleware.verifyToken, orderControllers.updateOrderByStatus);
 router.put("/admin/:id", authMiddleware.authorizeRole, orderControllers.updateOrder);
+router.put("/pay/:id", authMiddleware.verifyToken, orderControllers.updateOrderToPaid)
 //Delete order
 router.delete("/admin/:id",authMiddleware.authorizeRole, orderControllers.deleteOrder);
 

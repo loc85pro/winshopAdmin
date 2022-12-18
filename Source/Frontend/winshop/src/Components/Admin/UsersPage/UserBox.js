@@ -2,32 +2,50 @@ import React, { useState, useEffect } from "react";
 import UserIcon from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import "./UserBox.css";
-import axiosClient from "../../../services/axiosClient";
-import { SettingsSystemDaydreamTwoTone } from "@material-ui/icons";
 import CancelIcon from "@mui/icons-material/Cancel";
+import axios from "../../../services/axios";
+import axiosClient from "../../../services/axiosClient";
+import { useDispatch } from "react-redux";
 
 const UserBox = (props) => {
-  console.log(props);
   const [state, setState] = useState(0);
-  const [data, setData] = useState({
-    userId: props._id,
-    username: props.username,
-    email: props.email,
-    phone: props.phone,
-  });
-  console.log(data);
-  const handleSubmitUpdate = (e) => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleSubmitUpdate = async (e) => {
     e.preventDefault();
-    const fecthData = async () => {
-      const updatedData = await axiosClient.put(
-        `/api/user/admin/${props._id}`,
-        data
-      );
-      console.log(updatedData);
+    const url = `/api/user/admin/${props._id}`;
+    const method = "put";
+    const data = {
+      username: username || props.username,
+      email: email || props.email,
+      phone: phone || props.phone,
+      isAdmin: role || props.isAdmin,
     };
-    fecthData();
+    const headers = {
+      "Content-Type": "application/json",
+      token:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzM3ZjIzMTliNTZhMGE0NmFhOWUwZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3MTM1MTMxNCwiZXhwIjoxNjcxNDM3NzE0fQ.s92q5kZqPY1qain9X2LDLZ60hwyN3yIUyOgmjAYTh8Y",
+    };
+    await axios({ url, method, data, headers })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    const fetchUsers = async () => {
+      const data = await axiosClient.get("/api/user/admin");
+      dispatch({ type: "USER_UPDATE", payload: data.data });
+    };
+    fetchUsers();
     setState(0);
   };
+
   return (
     <>
       <div className="UserBox-container">
@@ -54,6 +72,7 @@ const UserBox = (props) => {
             <span className="UserBox-email">{props.email}</span>
           </div>
           <button
+            className="UserBox-update-button"
             onClick={() => {
               state ? setState(0) : setState(1);
             }}
@@ -67,36 +86,46 @@ const UserBox = (props) => {
           style={{ display: state ? "block" : "none" }}
         >
           <div
-            className="UpdateUserr-Model-cancel-button"
+            className="UpdateUser-Model-cancel-button"
             onClick={() => setState(0)}
           >
             <CancelIcon></CancelIcon>
           </div>
           <div className="UpdateUser-Modal-layout"></div>
-          <form className="UpdateUser-Form" onSubmit={handleSubmitUpdate}>
+          <form onSubmit={handleSubmitUpdate} className="UpdateUser-Form">
             <span>Username: </span>
             <input
-              defaultValue={props.username}
-              onChange={(e) => setData({ ...data, username: e.target.value })}
+              type="text"
+              name="username"
+              placeholder={props.username}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <span>Email:</span>
             <input
-              defaultValue={props.email}
+              type="email"
+              value={email}
+              placeholder={props.email}
               name="email"
-              onChange={(e) => setData({ ...data, email: e.target.value })}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <span>Phone:</span>
             <input
-              defaultValue={props.phone}
-              onChange={(e) => setData({ ...data, phone: e.target.value })}
+              type="text"
+              name="phone"
+              placeholder={props.phone}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
             <span>Role</span>
-            <select defaultValue={props.isAdmin ? "Admin" : "User"}>
-              <option>User</option>
-              <option>Admin</option>
+            <select onChange={(e) => setRole(e.target.value)}>
+              <option value="true">Admin</option>
+              <option value="false">User</option>
             </select>
             <div></div>
-            <input className="UpdateUser-Modal-Submit-Button" type="submit" />
+            <button className="UpdateUser-Modal-Submit-Button" type="submit">
+              Submit
+            </button>
           </form>
         </div>
       </div>

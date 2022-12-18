@@ -1,5 +1,5 @@
 import axiosClient from "../services/axiosClient";
-const initOrders = [{ orderStatus: "", itemsPrice: "0" }];
+const initOrders = [{ orderStatus: "", itemsPrice: "0", cart: [] }];
 
 const OrdersReducer = (state = initOrders, action) => {
   switch (action.type) {

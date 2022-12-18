@@ -7,7 +7,7 @@ const axiosClient = axios.create({
   headers: {
     "content-type": "application/json",
     token:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzM3ZjIzMTliNTZhMGE0NmFhOWUwZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY2OTk4MzkwMiwiZXhwIjoxNjcwMDcwMzAyfQ.U2jcgAXjqeG5XfVMQb6SMgPLcV8v37xkAPNG0vl_BbY",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzM3ZjIzMTliNTZhMGE0NmFhOWUwZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3MTM1MTMxNCwiZXhwIjoxNjcxNDM3NzE0fQ.s92q5kZqPY1qain9X2LDLZ60hwyN3yIUyOgmjAYTh8Y",
   },
 });
 

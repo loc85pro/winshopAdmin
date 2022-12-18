@@ -6,7 +6,7 @@ const orderControllers = {
         const {
             shippingInfo,
             cart,
-            paymentInfo,
+            paymentMethod,
             itemsPrice,
             shippingPrice,
             taxPrice,
@@ -17,7 +17,7 @@ const orderControllers = {
                 shippingInfo,
                 cart,
                 user: req.user.id,
-                paymentInfo,
+                paymentMethod,
                 itemsPrice,
                 shippingPrice,
                 taxPrice,
@@ -85,9 +85,9 @@ const orderControllers = {
         if(order.orderStatus === "Delivered"){
             return res.status(400).json("You have already delivered this order");
         }
-        if(req.body.status === "Shipped"){
+        if(req.body.status === "Delivering"){
             order.cart.forEach(async (o) => {
-                await orderControllers.updateStock(o.product, o.quantity)
+                await orderControllers.updateStock(o.product, o.qnt)
             })
         }
         order.orderStatus = req.body.status;
@@ -102,6 +102,26 @@ const orderControllers = {
             res.status(500).json(error);
         }
     },
+
+    updateOrderToPaid: async(req,res)=>{
+        const order = await Order.findById(req.params.id)
+   
+        if(order){
+           order.paidAt = Date.now()
+           order.paymentInfo = {
+               id:req.body.id,
+               status:req.body.status,
+               update_time:req.body.update_time,
+               email_address:req.body.email_address
+           }
+           const updatedOrder = await order.save()
+   
+           res.json(updatedOrder)
+        }else{
+            res.status(404)
+            throw new Error('Order Not Found')
+        }
+   },
     updateOrder: async(req, res) => {
         try {
             const order = await Order.findById(req.params.id);

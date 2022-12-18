@@ -1,5 +1,6 @@
 import React from "react";
 import "./AdminWidget.css";
+import { Link } from "react-router-dom";
 
 const AdminWidget = (props) => {
   /*  Replace counter by REDUX */
@@ -9,7 +10,13 @@ const AdminWidget = (props) => {
         <div className="left">
           <span className="titleCard">{props.title}</span>
           <span className="countercard">{props.value}</span>
-          <span className="viewall">{props.detail}</span>
+          <Link
+            className="viewall"
+            to={props.url}
+            style={{ textDecoration: "none" }}
+          >
+            {props.detail}
+          </Link>
         </div>
         <div className="right"></div>
       </div>

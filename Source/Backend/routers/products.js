@@ -38,7 +38,7 @@ router.get("/:id", productControllers.getProductById);
 router.put("/admin/:id", authMiddleware.authorizeRole, productControllers.updateProduct);
 
 // Delete Product
-router.delete("/admin/:id", authMiddleware.authorizeRole, productControllers.deleteProduct);
+router.delete("/admin/:x`", authMiddleware.authorizeRole, productControllers.deleteProduct);
 
 //Create product reviews
 router.post("/:id/review",authMiddleware.verifyToken, productControllers.createProductReview);

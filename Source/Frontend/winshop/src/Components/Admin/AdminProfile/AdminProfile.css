@@ -1,0 +1,16 @@
+.AdminProfilePage {
+  display: flex;
+  justify-content: center;
+}
+.AdminProfilePage-avatar {
+  width: 20vw;
+  max-height: 100px;
+  height: fit-content;
+}
+
+.AdminProfilePage-avatar img {
+  border-radius: 50%;
+  display: inline-block;
+  object-fit: cover;
+  max-width: 100%;
+}

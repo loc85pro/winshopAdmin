@@ -55,7 +55,9 @@ const AdminHeader = () => {
               className="profiledropdown"
               style={{ display: isActive === "avatar" ? "block" : "none" }}
             >
-              <ProfileDropdown></ProfileDropdown>
+              <ProfileDropdown
+                clickHandle={handleAvatarClick}
+              ></ProfileDropdown>
             </div>
           </div>
           <div className="itemAdminHeader" onClick={handleSettingClick}>

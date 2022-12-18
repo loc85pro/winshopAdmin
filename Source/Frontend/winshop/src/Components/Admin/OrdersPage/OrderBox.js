@@ -1,6 +1,6 @@
 import React from "react";
 import "./OrderBox.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import DeliveringIcon from "@mui/icons-material/LocalShipping";
 import ShippedIcon from "@mui/icons-material/CheckCircle";
@@ -11,9 +11,14 @@ import UserIcon from "@mui/icons-material/AccountCircle";
 import CartIcon from "@mui/icons-material/ShoppingCart";
 
 const OrderBox = (props) => {
+  const history = useHistory();
+  const handleClick = (e) => {
+    history.push(`/admin/orders/${props.id}`);
+  };
   return (
     <>
       <div
+        onClick={handleClick}
         className="orderBox-container"
         style={{
           background:

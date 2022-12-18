@@ -15,8 +15,11 @@ const productControllers = {
     getAllProducts: async(req, res) => {
         
         try {
+            const resultPerPage = 12;
+            const productsCount = await Product.countDocuments();
+            const pages = Math.ceil(productsCount / resultPerPage);
             const apiFeature = new ApiFeature(Product.find(), req.query).search().filter();
-            const product = await apiFeature.query;
+            let product = await apiFeature.query;
             res.status(200).json(product);
         } catch (error) {
             res.status(500).json(error);
@@ -46,6 +49,15 @@ const productControllers = {
         }
     },
     updateProduct: async(req, res) => {
+        const {
+            name,
+            description,
+            price,
+            image,
+            brand,
+            category,
+            countInStock
+        } = req.body;
         const product = await Product.findById(req.params.id);
         if(!product){
             return res.status(404).json({
@@ -54,14 +66,14 @@ const productControllers = {
             })
         }
         try {
-            const updatedProduct = await Product.findByIdAndUpdate(
-                req.params.id,
-                {
-                    $set: req.body,
-                  },
-                  { new: true, runValidators: true }
-            );
-
+            product.name = name;
+            product.price = price;
+            product.description = description;
+            product.image = image;
+            product.brand = brand;
+            product.category = category;
+            product.countInStock = countInStock;
+            const updatedProduct = await product.save();
             res.status(200).json(updatedProduct);
         } catch (error) {
             res.status(500).json(error);
@@ -86,7 +98,8 @@ const productControllers = {
         }
     },
     createProductReview: async(req, res) => {
-        const {rating, comment} = req.body;
+        const rating = req.body.rating;
+        const comment = req.body.comment
         const product = await Product.findById(req.params.id);
         if(product){
             const alreadyReview = product.reviews.find(
@@ -98,12 +111,19 @@ const productControllers = {
             const review = {
                 user: req.user.id,
                 name: req.user.username,
-                rating: Number(rating),
+                rating: rating,
                 comment: comment
             };
             product.reviews.push(review);
             product.numReviews = product.reviews.length;
-            product.ratings =product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+            let avg = 0;
+
+             product.reviews.forEach((rev) => {
+                avg += rev.rating;
+            });
+            if(product.reviews.length > 0){
+               product.ratings = avg / product.reviews.length;
+            }
             try {
                 const updatedProduct = await product.save();
                 res.status(200).json(updatedProduct);
